@@ -5,12 +5,14 @@ import { fetchUsers } from "../services/api";
 
 type UsersState = {
   users: User[];
+  visibleUsers: User[];
   loading: boolean;
   error: string;
 };
 
 const initialState: UsersState = {
   users: [],
+  visibleUsers: [],
   loading: false,
   error: '',
 };
