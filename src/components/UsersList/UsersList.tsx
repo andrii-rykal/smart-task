@@ -3,13 +3,13 @@ import { useAppSelector } from '../../app/hooks';
 import { NotFound } from '../NotFound';
 
 export const UsersList: React.FC = () => {
-  const { users } =
+  const { visibleUsers } =
     useAppSelector(state => state.users);
 
   return (
     <tbody>
-      {users.length ? (
-        users.map(user => (
+      {visibleUsers.length ? (
+        visibleUsers.map(user => (
           <tr key={user.id}>
             <td>{user.id}</td>
             <td>{user.name}</td>

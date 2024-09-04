@@ -26,16 +26,16 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     filterName: (state, action: PayloadAction<string>) => {
-      state.users = state.users.filter(user => includesQuery(user.name, action.payload));
+      state.visibleUsers = state.users.filter(user => includesQuery(user.name, action.payload));
     },
     filterUserName: (state, action: PayloadAction<string>) => {
-      state.users = state.users.filter(user => includesQuery(user.username, action.payload));
+      state.visibleUsers = state.users.filter(user => includesQuery(user.username, action.payload));
     },
     filterEmail: (state, action: PayloadAction<string>) => {
-      state.users = state.users.filter(user => includesQuery(user.email, action.payload));
+      state.visibleUsers = state.users.filter(user => includesQuery(user.email, action.payload));
     },
     filterPhone: (state, action: PayloadAction<string>) => {
-      state.users = state.users.filter(user => includesQuery(user.phone, action.payload));
+      state.visibleUsers = state.users.filter(user => includesQuery(user.phone, action.payload));
     },
   },
   extraReducers: (builder) => {
@@ -44,6 +44,7 @@ export const usersSlice = createSlice({
     });
     builder.addCase(init.fulfilled, (state, action) => {
       state.users = action.payload;
+      state.visibleUsers = action.payload;
       state.loading = false;
     });
     builder.addCase(init.rejected, (state) => {
