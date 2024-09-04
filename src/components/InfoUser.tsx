@@ -57,61 +57,49 @@ export const InfoUser = () => {
       <thead>
         <tr className="is-white">
           <td></td>
-          <td className="control has-icons-left">
+          <td>
             <input
               className="input is-info is-rounded"
               name="name"
               type="text"
-              size={1}
+              size={10}
               onChange={(e) => {
                 setQueryName(e.target.value.trim());
               }}
             />
-            <span className="icon is-left">
-              <i className="fas fa-search is-medium"></i>
-            </span>
           </td>
-          <td className="control has-icons-left">
+          <td>
             <input
               className="input is-info is-rounded"
               name="username"
               type="text"
-              size={1}
+              size={10}
               onChange={(e) => {
                 setQueryUserName(e.target.value.trim());
               }}
             />
-            <span className="icon is-left">
-              <i className="fas fa-search is-medium"></i>
-            </span>
           </td>
-          <td className="control has-icons-left">
+          <td>
             <input
               className="input is-info is-rounded"
               name="email"
               type="text"
-              size={1}
+              size={10}
               onChange={(e) => {
                 setQueryEmail(e.target.value.trim());
               }}
             />
-            <span className="icon is-left">
-              <i className="fas fa-search is-medium"></i>
-            </span>
           </td>
-          <td className="control has-icons-left">
+          <td>
             <input
               className="input is-info is-rounded"
               name="phone"
               type="text"
-              size={1}
+              size={10}
               onChange={(e) => {
                 setQueryPhone(e.target.value.trim());
               }}
             />
-            <span className="icon is-left">
-              <i className="fas fa-search is-medium"></i>
-            </span>
           </td>
         </tr>
         <tr className="is-light">
