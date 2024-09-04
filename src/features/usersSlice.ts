@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { User } from "../types/User";
 import { fetchUsers } from "../services/api";
@@ -7,18 +7,39 @@ type UsersState = {
   users: User[];
   loading: boolean;
   error: string;
+  queryName: string;
+  queryUserName: string;
+  queryEmail: string;
+  queryPhone: string;
 };
 
 const initialState: UsersState = {
   users: [],
   loading: false,
-  error: "",
+  error: '',
+  queryName: '',
+  queryUserName: '',
+  queryEmail: '',
+  queryPhone: '',
 };
 
 export const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    queryName: (state, action: PayloadAction<string>) => {
+      state.queryName = action.payload;
+    },
+    queryUserName: (state, action: PayloadAction<string>) => {
+      state.queryUserName = action.payload;
+    },
+    queryEmail: (state, action: PayloadAction<string>) => {
+      state.queryEmail = action.payload;
+    },
+    queryPhone: (state, action: PayloadAction<string>) => {
+      state.queryPhone = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(init.pending, (state) => {
       state.loading = true;
@@ -35,6 +56,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
+export const { queryName, queryUserName, queryEmail, queryPhone } = usersSlice.actions;
 
 export const init = createAsyncThunk('users/fetch', () => {
   return fetchUsers();

@@ -10,17 +10,12 @@ function includesQuery(str: string, query: string): boolean {
 
 export const InfoUser = () => {
   const dispatch = useAppDispatch();
-  const { users, loading, error } = useAppSelector(state => state.users);
+  const { users, loading, error, queryName, queryUserName, queryEmail, queryPhone } = useAppSelector(state => state.users);
 
-  const [queryName, setQueryName] = useState('');
-  const [queryUserName, setQueryUserName] = useState('');
-  const [queryEmail, setQueryEmail] = useState('');
-  const [queryPhone, setQueryPhone] = useState('');
   let copyUsers = [...users];
 
   useEffect(() => {
     dispatch(usersActions.init());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
@@ -49,10 +44,6 @@ export const InfoUser = () => {
     copyUsers = copyUsers.filter(user => includesQuery(user.phone, queryPhone));
   }
 
-  // if (!copyUsers.length) {
-  //   return <NotUsers />;
-  // }
-
   return (
     <table className="m-auto table is-hoverable is-bordered">
       <thead>
@@ -63,9 +54,8 @@ export const InfoUser = () => {
               className="input is-info is-rounded"
               name="name"
               type="text"
-              size={10}
               onChange={e => {
-                setQueryName(e.target.value.trim());
+                dispatch(usersActions.queryName(e.target.value.trim()));
               }}
             />
           </td>
@@ -74,9 +64,8 @@ export const InfoUser = () => {
               className="input is-info is-rounded"
               name="username"
               type="text"
-              size={10}
               onChange={e => {
-                setQueryUserName(e.target.value.trim());
+                dispatch(usersActions.queryUserName(e.target.value.trim()));
               }}
             />
           </td>
@@ -85,9 +74,8 @@ export const InfoUser = () => {
               className="input is-info is-rounded"
               name="email"
               type="text"
-              size={10}
               onChange={e => {
-                setQueryEmail(e.target.value.trim());
+                dispatch(usersActions.queryEmail(e.target.value.trim()));
               }}
             />
           </td>
@@ -96,9 +84,8 @@ export const InfoUser = () => {
               className="input is-info is-rounded"
               name="phone"
               type="text"
-              size={10}
               onChange={e => {
-                setQueryPhone(e.target.value.trim());
+                dispatch(usersActions.queryPhone(e.target.value.trim()));
               }}
             />
           </td>
