@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import * as usersActions from "../features/usersSlice";
-import { Loader } from "./Loader";
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import * as usersActions from '../../features/usersSlice';
+import { Loader } from '../Loader';
+import { NotUsers } from '../NotUsers';
 
 function includesQuery(str: string, query: string): boolean {
   return str.toLowerCase().includes(query.toLowerCase());
@@ -9,12 +10,12 @@ function includesQuery(str: string, query: string): boolean {
 
 export const InfoUser = () => {
   const dispatch = useAppDispatch();
-  const { users, loading, error } = useAppSelector((state) => state.users);
+  const { users, loading, error } = useAppSelector(state => state.users);
 
-  const [queryName, setQueryName] = useState("");
-  const [queryUserName, setQueryUserName] = useState("");
-  const [queryEmail, setQueryEmail] = useState("");
-  const [queryPhone, setQueryPhone] = useState("");
+  const [queryName, setQueryName] = useState('');
+  const [queryUserName, setQueryUserName] = useState('');
+  const [queryEmail, setQueryEmail] = useState('');
+  const [queryPhone, setQueryPhone] = useState('');
   let copyUsers = [...users];
 
   useEffect(() => {
@@ -31,26 +32,26 @@ export const InfoUser = () => {
   }
 
   if (queryName) {
-    copyUsers = copyUsers.filter((user) => includesQuery(user.name, queryName));
+    copyUsers = copyUsers.filter(user => includesQuery(user.name, queryName));
   }
 
   if (queryUserName) {
-    copyUsers = copyUsers.filter((user) =>
-      includesQuery(user.username, queryUserName)
+    copyUsers = copyUsers.filter(user =>
+      includesQuery(user.username, queryUserName),
     );
   }
 
   if (queryEmail) {
-    copyUsers = copyUsers.filter((user) =>
-      includesQuery(user.email, queryEmail)
-    );
+    copyUsers = copyUsers.filter(user => includesQuery(user.email, queryEmail));
   }
 
   if (queryPhone) {
-    copyUsers = copyUsers.filter((user) =>
-      includesQuery(user.phone, queryPhone)
-    );
+    copyUsers = copyUsers.filter(user => includesQuery(user.phone, queryPhone));
   }
+
+  // if (!copyUsers.length) {
+  //   return <NotUsers />;
+  // }
 
   return (
     <table className="m-auto table is-hoverable is-bordered">
@@ -63,7 +64,7 @@ export const InfoUser = () => {
               name="name"
               type="text"
               size={10}
-              onChange={(e) => {
+              onChange={e => {
                 setQueryName(e.target.value.trim());
               }}
             />
@@ -74,7 +75,7 @@ export const InfoUser = () => {
               name="username"
               type="text"
               size={10}
-              onChange={(e) => {
+              onChange={e => {
                 setQueryUserName(e.target.value.trim());
               }}
             />
@@ -85,7 +86,7 @@ export const InfoUser = () => {
               name="email"
               type="text"
               size={10}
-              onChange={(e) => {
+              onChange={e => {
                 setQueryEmail(e.target.value.trim());
               }}
             />
@@ -96,7 +97,7 @@ export const InfoUser = () => {
               name="phone"
               type="text"
               size={10}
-              onChange={(e) => {
+              onChange={e => {
                 setQueryPhone(e.target.value.trim());
               }}
             />
@@ -113,15 +114,19 @@ export const InfoUser = () => {
         </tr>
       </thead>
       <tbody>
-        {copyUsers.map((user) => (
-          <tr key={user.id} className="">
-            <td>{user.id}</td>
-            <td>{user.name}</td>
-            <td>{user.username}</td>
-            <td>{user.email}</td>
-            <td>{user.phone}</td>
-          </tr>
-        ))}
+        {copyUsers.length ? (
+          copyUsers.map(user => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>{user.phone}</td>
+            </tr>
+          ))
+        ): (
+          <NotUsers />
+        )}
       </tbody>
     </table>
   );
