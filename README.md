@@ -1,7 +1,10 @@
-The user table is implemented using html <table> and bulma.
-Redux Toolkit is used for state management.
-User downloads are created using createAsyncThunk.
-Filtering is implemented locally using useState.
+# test task for SMART
+
+This project was created on React. It implements a table with a list of users obtained from the dummy JSONPlaceholder API. The received data is stored in the project state using the Redux Toolkit and createAsyncThunk. Real-time filtering is implemented for each column.
+
+Technologies used: React, Redux Toolkit, TypeScript, SCSS, Bulma.
+
+Demo(https://andrii-rykal.github.io/smart-task/)
 
 To run:
 -- clone the repository to your computer
