@@ -7,37 +7,33 @@ type UsersState = {
   users: User[];
   loading: boolean;
   error: string;
-  queryName: string;
-  queryUserName: string;
-  queryEmail: string;
-  queryPhone: string;
 };
 
 const initialState: UsersState = {
   users: [],
   loading: false,
   error: '',
-  queryName: '',
-  queryUserName: '',
-  queryEmail: '',
-  queryPhone: '',
 };
+
+function includesQuery(str: string, query: string): boolean {
+  return str.toLowerCase().includes(query.toLowerCase());
+}
 
 export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    queryName: (state, action: PayloadAction<string>) => {
-      state.queryName = action.payload;
+    filterName: (state, action: PayloadAction<string>) => {
+      state.users = state.users.filter(user => includesQuery(user.name, action.payload));
     },
-    queryUserName: (state, action: PayloadAction<string>) => {
-      state.queryUserName = action.payload;
+    filterUserName: (state, action: PayloadAction<string>) => {
+      state.users = state.users.filter(user => includesQuery(user.username, action.payload));
     },
-    queryEmail: (state, action: PayloadAction<string>) => {
-      state.queryEmail = action.payload;
+    filterEmail: (state, action: PayloadAction<string>) => {
+      state.users = state.users.filter(user => includesQuery(user.email, action.payload));
     },
-    queryPhone: (state, action: PayloadAction<string>) => {
-      state.queryPhone = action.payload;
+    filterPhone: (state, action: PayloadAction<string>) => {
+      state.users = state.users.filter(user => includesQuery(user.phone, action.payload));
     },
   },
   extraReducers: (builder) => {
@@ -56,7 +52,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { queryName, queryUserName, queryEmail, queryPhone } = usersSlice.actions;
+export const { filterName, filterEmail, filterPhone, filterUserName } = usersSlice.actions;
 
 export const init = createAsyncThunk('users/fetch', () => {
   return fetchUsers();

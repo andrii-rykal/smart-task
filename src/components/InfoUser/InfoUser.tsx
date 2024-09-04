@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import * as usersActions from '../../features/usersSlice';
 import { Loader } from '../Loader';
@@ -6,7 +6,7 @@ import { Search } from '../Search';
 import { Header } from '../Header';
 import { UsersList } from '../UsersList';
 
-export const InfoUser = () => {
+export const InfoUser: React.FC = () => {
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector(state => state.users);
 

@@ -1,4 +1,6 @@
-export const Header = () => {
+import React from "react";
+
+export const Header: React.FC = () => {
   return (
     <tr className="is-light">
       <th>

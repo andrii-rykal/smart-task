@@ -1,7 +1,8 @@
+import React from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import * as usersActions from '../../features/usersSlice';
 
-export const Search = () => {
+export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
@@ -13,7 +14,7 @@ export const Search = () => {
           name="name"
           type="text"
           onChange={e => {
-            dispatch(usersActions.queryName(e.target.value.trim()));
+            dispatch(usersActions.filterName(e.target.value.trim()));
           }}
         />
       </td>
@@ -23,7 +24,7 @@ export const Search = () => {
           name="username"
           type="text"
           onChange={e => {
-            dispatch(usersActions.queryUserName(e.target.value.trim()));
+            dispatch(usersActions.filterUserName(e.target.value.trim()));
           }}
         />
       </td>
@@ -33,7 +34,7 @@ export const Search = () => {
           name="email"
           type="text"
           onChange={e => {
-            dispatch(usersActions.queryEmail(e.target.value.trim()));
+            dispatch(usersActions.filterEmail(e.target.value.trim()));
           }}
         />
       </td>
@@ -43,7 +44,7 @@ export const Search = () => {
           name="phone"
           type="text"
           onChange={e => {
-            dispatch(usersActions.queryPhone(e.target.value.trim()));
+            dispatch(usersActions.filterPhone(e.target.value.trim()));
           }}
         />
       </td>
