@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { User } from '../types/User';
 import { fetchUsers } from '../services/api';
+import { Filter } from '../types/Filter';
 
 type UsersState = {
   users: User[];
@@ -17,10 +18,6 @@ const initialState: UsersState = {
   error: '',
 };
 
-type Filter = {
-  filterBy: 'name' | 'username' | 'email' | 'phone';
-  value: string;
-};
 
 export const usersSlice = createSlice({
   name: 'users',
