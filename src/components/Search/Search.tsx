@@ -2,8 +2,6 @@ import React from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import * as usersActions from '../../features/usersSlice';
 
-
-
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -21,6 +19,10 @@ export const Search: React.FC = () => {
               value: e.target.value.trim(),
             }));
           }}
+          onBlur={e => {
+            e.target.value = '';
+            dispatch(usersActions.initial());
+          }}
         />
       </td>
       <td>
@@ -33,6 +35,10 @@ export const Search: React.FC = () => {
               filterBy: 'username',
               value: e.target.value.trim(),
             }));
+          }}
+          onBlur={e => {
+            e.target.value = '';
+            dispatch(usersActions.initial());
           }}
         />
       </td>
@@ -47,6 +53,10 @@ export const Search: React.FC = () => {
               value: e.target.value.trim(),
             }));
           }}
+          onBlur={e => {
+            e.target.value = '';
+            dispatch(usersActions.initial());
+          }}
         />
       </td>
       <td>
@@ -59,6 +69,10 @@ export const Search: React.FC = () => {
               filterBy: 'phone',
               value: e.target.value.trim(),
             }));
+          }}
+          onBlur={e => {
+            e.target.value = '';
+            dispatch(usersActions.initial());
           }}
         />
       </td>

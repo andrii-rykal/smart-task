@@ -32,6 +32,9 @@ export const usersSlice = createSlice({
         user[filterBy].toLowerCase().includes(value.toLowerCase())
       );
     },
+    initial: (state) => {
+      state.visibleUsers = state.users;
+    },
   },
   extraReducers: builder => {
     builder.addCase(init.pending, state => {
@@ -50,7 +53,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { filter } = usersSlice.actions;
+export const { filter, initial } = usersSlice.actions;
 
 export const init = createAsyncThunk('users/fetch', () => {
   return fetchUsers();
