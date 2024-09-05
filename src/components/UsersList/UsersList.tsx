@@ -6,9 +6,6 @@ export const UsersList: React.FC = () => {
   const { visibleUsers } =
     useAppSelector(state => state.users);
   
-  console.log(visibleUsers);
-  
-
   return (
     <tbody>
       {visibleUsers.length ? (

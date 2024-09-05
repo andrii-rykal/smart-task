@@ -2,13 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { User } from '../types/User';
 import { fetchUsers } from '../services/api';
-import { Filter } from '../types/Filter';
 
 type UsersState = {
   users: User[];
   visibleUsers: User[];
   loading: boolean;
   error: string;
+  queryName: string;
+  queryUserName: string;
+  queryEmail: string;
+  queryPhone: string;
 };
 
 const initialState: UsersState = {
@@ -16,21 +19,34 @@ const initialState: UsersState = {
   visibleUsers: [],
   loading: false,
   error: '',
+  queryEmail: '',
+  queryName: '',
+  queryPhone: '',
+  queryUserName: '',
 };
-
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    filter: (state, action: PayloadAction<Filter>) => {
-      const { filterBy, value } = action.payload;
-      state.visibleUsers = state.users.filter(user =>
-        user[filterBy].toLowerCase().includes(value.toLowerCase())
-      );
+    filter: (state) => {
+      state.visibleUsers = state.users
+        .filter(user => user.name.toLowerCase().includes(state.queryName.toLowerCase()))
+        .filter(user => user.username.toLowerCase().includes(state.queryUserName.toLowerCase()))
+        .filter(user => user.email.toLowerCase().includes(state.queryEmail.toLowerCase()))
+        .filter(user => user.phone.toLowerCase().includes(state.queryPhone.toLowerCase()))
     },
-    initial: (state) => {
-      state.visibleUsers = state.users;
+    queryName: (state, action: PayloadAction<string>) => {
+      state.queryName = action.payload;
+    },
+    queryUserName: (state, action: PayloadAction<string>) => {
+      state.queryUserName = action.payload;
+    },
+    queryEmail: (state, action: PayloadAction<string>) => {
+      state.queryEmail = action.payload;
+    },
+    queryPhone: (state, action: PayloadAction<string>) => {
+      state.queryPhone = action.payload;
     },
   },
   extraReducers: builder => {
@@ -50,7 +66,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { filter, initial } = usersSlice.actions;
+export const { queryEmail, queryName, queryPhone, queryUserName, filter } = usersSlice.actions;
 
 export const init = createAsyncThunk('users/fetch', () => {
   return fetchUsers();
