@@ -12,7 +12,7 @@ export const InfoUser: React.FC = () => {
 
   useEffect(() => {
     dispatch(usersActions.init());
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return <Loader />;

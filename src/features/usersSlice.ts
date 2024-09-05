@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { User } from "../types/User";
-import { fetchUsers } from "../services/api";
+import { User } from '../types/User';
+import { fetchUsers } from '../services/api';
 
 type UsersState = {
   users: User[];
@@ -17,29 +17,24 @@ const initialState: UsersState = {
   error: '',
 };
 
-function includesQuery(str: string, query: string): boolean {
-  return str.toLowerCase().includes(query.toLowerCase());
-}
+type Filter = {
+  filterBy: 'name' | 'username' | 'email' | 'phone';
+  value: string;
+};
 
 export const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {
-    filterName: (state, action: PayloadAction<string>) => {
-      state.visibleUsers = state.users.filter(user => includesQuery(user.name, action.payload));
-    },
-    filterUserName: (state, action: PayloadAction<string>) => {
-      state.visibleUsers = state.users.filter(user => includesQuery(user.username, action.payload));
-    },
-    filterEmail: (state, action: PayloadAction<string>) => {
-      state.visibleUsers = state.users.filter(user => includesQuery(user.email, action.payload));
-    },
-    filterPhone: (state, action: PayloadAction<string>) => {
-      state.visibleUsers = state.users.filter(user => includesQuery(user.phone, action.payload));
+    filter: (state, action: PayloadAction<Filter>) => {
+      const { filterBy, value } = action.payload;
+      state.visibleUsers = state.users.filter(user =>
+        user[filterBy].toLowerCase().includes(value.toLowerCase())
+      );
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(init.pending, (state) => {
+  extraReducers: builder => {
+    builder.addCase(init.pending, state => {
       state.loading = true;
     });
     builder.addCase(init.fulfilled, (state, action) => {
@@ -47,7 +42,7 @@ export const usersSlice = createSlice({
       state.visibleUsers = action.payload;
       state.loading = false;
     });
-    builder.addCase(init.rejected, (state) => {
+    builder.addCase(init.rejected, state => {
       state.error = 'Something went wrong!';
       state.loading = false;
     });
@@ -55,7 +50,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { filterName, filterEmail, filterPhone, filterUserName } = usersSlice.actions;
+export const { filter } = usersSlice.actions;
 
 export const init = createAsyncThunk('users/fetch', () => {
   return fetchUsers();

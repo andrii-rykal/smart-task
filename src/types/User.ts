@@ -1,5 +1,4 @@
 export type User = {
-  kind: any;
   address: {
     city: string,
     geo: {

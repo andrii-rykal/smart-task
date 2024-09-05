@@ -2,6 +2,8 @@ import React from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import * as usersActions from '../../features/usersSlice';
 
+
+
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -14,7 +16,10 @@ export const Search: React.FC = () => {
           name="name"
           type="text"
           onChange={e => {
-            dispatch(usersActions.filterName(e.target.value.trim()));
+            dispatch(usersActions.filter({
+              filterBy: 'name',
+              value: e.target.value.trim(),
+            }));
           }}
         />
       </td>
@@ -24,7 +29,10 @@ export const Search: React.FC = () => {
           name="username"
           type="text"
           onChange={e => {
-            dispatch(usersActions.filterUserName(e.target.value.trim()));
+            dispatch(usersActions.filter({
+              filterBy: 'username',
+              value: e.target.value.trim(),
+            }));
           }}
         />
       </td>
@@ -34,7 +42,10 @@ export const Search: React.FC = () => {
           name="email"
           type="text"
           onChange={e => {
-            dispatch(usersActions.filterEmail(e.target.value.trim()));
+            dispatch(usersActions.filter({
+              filterBy: 'email',
+              value: e.target.value.trim(),
+            }));
           }}
         />
       </td>
@@ -44,7 +55,10 @@ export const Search: React.FC = () => {
           name="phone"
           type="text"
           onChange={e => {
-            dispatch(usersActions.filterPhone(e.target.value.trim()));
+            dispatch(usersActions.filter({
+              filterBy: 'phone',
+              value: e.target.value.trim(),
+            }));
           }}
         />
       </td>
